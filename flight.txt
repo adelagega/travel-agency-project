@@ -1,0 +1,1 @@
+Flight{flightNumber='167', airline='Wizzair', departureTime='10:00Am', arrivalTime='2PM', price=170.0, isAvailable=true, isReserved=false, seatsSold=100}
