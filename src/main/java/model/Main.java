@@ -89,12 +89,6 @@ public class Main {
      */
 
      // Log msg to console for destination class
-        try {
-            Destination paris = new Destination("Paris", Arrays.asList("Eiffel Tower", null));
-            System.out.println(paris.getName() + " destination created with attractions: " + paris.getAttractions());
-        } catch (AttractionNotFoundException e) {
-            System.err.println("Could not create destination: Attraction not found.");
-        }
 
 }}
 

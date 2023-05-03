@@ -7,6 +7,11 @@
 <groupId>solvd.group</groupId>
 <artifactId>TravelAgencyFirstProject</artifactId>
 <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->

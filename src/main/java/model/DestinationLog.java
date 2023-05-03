@@ -19,25 +19,13 @@ public class DestinationLog {
         writeLog(logMessage);
     }
 
-
     private static void writeLog(String message) {
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(LOG_FILE, true));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE, true))) {
             writer.write(message);
             writer.newLine();
         } catch (IOException e) {
             System.err.println("Error writing to log file: " + e.getMessage());
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    System.err.println("Error closing log file: " + e.getMessage());
-                }
-            }
         }
     }
-
 
 }
