@@ -1,48 +1,66 @@
 package model;
 
-public class Flight implements Bookable, Cancellable {
+import java.util.List;
 
+public class Flight implements Bookable, Searchable {
+    private static int instanceCounter = 0;
     private String flightNumber;
-    private String airline;
+    public String airline;
+    private String departureAirport;
+    private String arrivalAirport;
     private String departureTime;
     private String arrivalTime;
-    private double price;
+    private int availableSeats;
+    private double pricePerSeat;
     private boolean isAvailable;
-    private boolean isReserved;
-    private static final int maxCapacity; //
-    private int seatsSold;
 
-    static{
-        maxCapacity = 300;
-    }
-
-    public Flight(String flightNumber, String airline, String departureTime, String arrivalTime, double price, boolean isAvailable, boolean isReserved, int seatsSold) {
-        this.flightNumber = flightNumber;
+    public Flight(String airline, String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, int availableSeats, double pricePerSeat, boolean isAvailable) {
+        instanceCounter++;
         this.airline = airline;
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.price = price;
-        this.isAvailable = isAvailable;
-        this.isReserved = isReserved;
-        this.seatsSold = seatsSold;
-    }
-
-    public static int getMaxCapacity() {
-        return maxCapacity;
+        this.availableSeats = availableSeats;
+        this.pricePerSeat = pricePerSeat;
     }
 
     public String getFlightNumber() {
         return flightNumber;
     }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
     public String getAirline() {
         return airline;
     }
+
     public void setAirline(String airline) {
         this.airline = airline;
     }
+
+    public String getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public void setDepartureAirport(String departureAirport) {
+        this.departureAirport = departureAirport;
+    }
+
+    public String getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+    public void setArrivalAirport(String arrivalAirport) {
+        this.arrivalAirport = arrivalAirport;
+    }
+
     public String getDepartureTime() {
         return departureTime;
     }
+
     public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
@@ -55,78 +73,72 @@ public class Flight implements Bookable, Cancellable {
         this.arrivalTime = arrivalTime;
     }
 
-    public double getPrice() {
-        return price;
+    public int getAvailableSeats() {
+        return availableSeats;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public double getPricePerSeat() {
+        return pricePerSeat;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setPricePerSeat(double pricePerSeat) {
+        this.pricePerSeat = pricePerSeat;
     }
 
-    public boolean isReserved() {
-        return isReserved;
+    public boolean isAvailable(int numberOfSeats){
+        return availableSeats>=numberOfSeats;
     }
-
-    public void setReserved(boolean reserved) {
-        isReserved = reserved;
-    }
-
-    public int getSeatsSold() {
-        return seatsSold;
-    }
-
-    public void setSeatsSold(int seatsSold) {
-        this.seatsSold = seatsSold;
-    }
-
-
-
-
-    public boolean checkAvailability() {
-        return isAvailable && !isReserved && (seatsSold<maxCapacity);
-    }
-    public boolean reserve() {
-        if(checkAvailability()){
-            isReserved=true;
-            seatsSold++;
-            return true;
-        }else{
-            return false;
+    @Override
+    public void book(Object bookingdetails) {
+        if(bookingdetails instanceof Integer){
+            int numberOfSeats=(Integer) bookingdetails;
+            if(isAvailable(numberOfSeats)){
+                availableSeats-=numberOfSeats;
+            } else{
+                throw new IllegalStateException("No enough available seats");
+            }
+        } else {
+         throw new IllegalArgumentException("Invalid Booking details");
         }
-    }
-    public boolean cancelReservation() {
-        if(isReserved){
-            isReserved=false;
-            seatsSold--;
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public static final void printMaxCapacity() {
-        System.out.println("The maximum capacity of a Flight is " + maxCapacity + " seats.");
     }
 
     @Override
-    public String toString() {
-        return "Flight{" +
-                "flightNumber='" + flightNumber + '\'' +
-                ", airline='" + airline + '\'' +
-                ", departureTime='" + departureTime + '\'' +
-                ", arrivalTime='" + arrivalTime + '\'' +
-                ", price=" + price +
-                ", isAvailable=" + isAvailable +
-                ", isReserved=" + isReserved +
-                ", seatsSold=" + seatsSold +
-                '}';
+    public void cancel(Object bookingDetails) {
+      if(bookingDetails instanceof Integer){
+          int numberOfSeats=(Integer)bookingDetails;
+          availableSeats+=numberOfSeats;
+      }else{
+          throw new IllegalArgumentException("Invalid Booking details");
+      }
+    }
+
+    @Override
+    public double calculatePrice(Object bookingDetails) {
+        if(bookingDetails instanceof Double){
+         int numberOfSeats=(Integer) bookingDetails;
+         return pricePerSeat*numberOfSeats;
+        } else{
+            throw new IllegalArgumentException("Invalid Booking details");
+        }
+    }
+
+    @Override
+    public List<Object> search() {
+        return null;
+    }
+
+    @Override
+    public List<Object> filter() {
+        return null;
+    }
+
+    @Override
+    public List<Object> sort() {
+        return null;
     }
 }
+

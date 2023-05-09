@@ -1,22 +1,26 @@
 package model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Destination {
-
+    private String destinationID;
     private String name;
-    private List<String> attractions;
+    private String country;
+    private ArrayList<Attraction> attractions;
 
-    public Destination(String name, List<String> attractions) throws AttractionNotFoundException{
+    public Destination(String destinationID, String name, String country, String description, ArrayList<Attraction> attractions) {
+        this.destinationID = destinationID;
         this.name = name;
-        if(attractions != null){
-            for(String attraction : attractions){
-                if(attraction==null){
-                    throw new AttractionNotFoundException();
-                }
-            }
-        }
-        this.attractions = attractions;
+        this.country = country;
+        this.attractions=new ArrayList<>();
+    }
+
+    public String getDestinationID() {
+        return destinationID;
+    }
+
+    public void setDestinationID(String destinationID) {
+        this.destinationID = destinationID;
     }
 
     public String getName() {
@@ -27,11 +31,43 @@ public class Destination {
         this.name = name;
     }
 
-    public List<String> getAttractions() {
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public ArrayList<Attraction> getAttractions() {
         return attractions;
     }
 
-    public void setAttractions(List<String> attractions) {
+    public void setAttractions(ArrayList<Attraction> attractions) {
         this.attractions = attractions;
+    }
+
+    public void updateDestination(String destinationID, String name, String country){
+        this.destinationID=destinationID;
+        this.name=name;
+        this.country=country;
+    }
+
+    public void addAttractions(Attraction attraction){
+        this.attractions.add(attraction);
+    }
+
+    public void removeAttraction(Attraction attraction){
+        this.attractions.remove(attractions);
+    }
+
+    @Override
+    public String toString() {
+        return "Destination{" +
+                "destinationID='" + destinationID + '\'' +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", attractions=" + attractions +
+                '}';
     }
 }

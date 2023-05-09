@@ -1,50 +1,91 @@
 package model;
 
-public class Hotel extends Accomodation {
+import java.util.List;
 
-    private int starRating;
+public class Hotel implements Bookable, Searchable{
 
-    public Hotel(String name, String location, double price, boolean isAvailable, boolean isReserved, int starRating) {
-        super(name, location, price, isAvailable, isReserved);
-        this.starRating = starRating;
-    }
+     private String hotelID;
+     private String name;
+     private String address;
+     private int rating;
+     private RoomType roomType;
 
-  /*public Hotel(String name, String location, double price, boolean isAvailable, boolean isReserved, int starRating) {
-        super(name, location, price, isAvailable, isReserved);
-        try{
-            if(starRating<0||starRating>5){
-                throw new InvalidStarRatingException();
-            }
-            this.starRating=starRating;
-        } catch(InvalidStarRatingException e){
-            System.out.println(e.getMessage());
-            this.starRating=-1;
-        }
-    }
-     */
+     public Hotel(String hotelID, String name, String address, int rating, RoomType roomType) {
+         this.hotelID = hotelID;
+         this.name = name;
+         this.address = address;
+         this.rating = rating;
+         this.roomType = roomType;
+     }
 
-    public int getStarRating() {
-        return starRating;
-    }
+     public String getHotelID() {
+         return hotelID;
+     }
 
-    public void setStarRating(int starRating) {
-        this.starRating = starRating;
+     public void setHotelID(String hotelID) {
+         this.hotelID = hotelID;
+     }
+
+     public String getName() {
+         return name;
+     }
+
+     public void setName(String name) {
+         this.name = name;
+     }
+
+     public String getAddress() {
+         return address;
+     }
+
+     public void setAddress(String address) {
+         this.address = address;
+     }
+
+     public int getRating() {
+         return rating;
+     }
+
+     public void setRating(int rating) {
+         this.rating = rating;
+     }
+
+     public RoomType getRoomType() {
+         return roomType;
+     }
+
+     public void setRoomType(RoomType roomType) {
+         this.roomType = roomType;
+     }
+
+    @Override
+    public void book(Object bookingdetails) {
+
     }
 
     @Override
-    public double getPricePerNight() {
+    public void cancel(Object bookingDetails) {
+
+    }
+
+    @Override
+    public double calculatePrice(Object bookingDetails) {
         return 0;
     }
 
     @Override
-    public String toString() {
-        return "Hotel{" +
-                "name='" + getName() + '\'' +
-                ", location='" + getLocation() + '\'' +
-                ", price=" + getPrice() +
-                ", isAvailable=" + isAvailable() +
-                ", isReserved=" + isReserved() +
-                ", starRating=" + starRating +
-                '}';
+    public List<Object> search() {
+        return null;
     }
-}
+
+    @Override
+    public List<Object> filter() {
+        return null;
+    }
+
+    @Override
+    public List<Object> sort() {
+        return null;
+    }
+
+ }
