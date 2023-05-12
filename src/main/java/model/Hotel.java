@@ -2,8 +2,7 @@ package model;
 
 import java.util.List;
 
-public class Hotel implements Bookable, Searchable{
-
+public class Hotel implements Bookable{
      private String hotelID;
      private String name;
      private String address;
@@ -72,20 +71,4 @@ public class Hotel implements Bookable, Searchable{
     public double calculatePrice(Object bookingDetails) {
         return 0;
     }
-
-    @Override
-    public List<Object> search() {
-        return null;
-    }
-
-    @Override
-    public List<Object> filter() {
-        return null;
-    }
-
-    @Override
-    public List<Object> sort() {
-        return null;
-    }
-
- }
+}

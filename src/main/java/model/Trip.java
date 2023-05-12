@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-public class Trip implements Searchable {
+public class Trip {
     private String tripID;
     private String startDate;
     private String endDate;
@@ -67,18 +67,4 @@ public class Trip implements Searchable {
         this.destination = destination;
     }
 
-    @Override
-    public List<Object> search() {
-        return null;
-    }
-
-    @Override
-    public List<Object> filter() {
-        return null;
-    }
-
-    @Override
-    public List<Object> sort() {
-        return null;
-    }
 }

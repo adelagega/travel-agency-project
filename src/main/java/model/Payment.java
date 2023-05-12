@@ -1,14 +1,16 @@
 package model;
 
+import java.util.UUID;
+
 public class Payment {
-    private String paymentID;
+    private final String paymentID;
     private Booking booking;
     private double amount;
     private PaymentMethod paymentMethod;
     private PaymentStatus paymentStatus;
 
-    public Payment(String paymentID, Booking booking, double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus) {
-        this.paymentID = paymentID;
+    public Payment(Booking booking, double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus) {
+        this.paymentID= UUID.randomUUID().toString();
         this.booking = booking;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
@@ -17,10 +19,6 @@ public class Payment {
 
     public String getPaymentID() {
         return paymentID;
-    }
-
-    public void setPaymentID(String paymentID) {
-        this.paymentID = paymentID;
     }
 
     public Booking getBooking() {

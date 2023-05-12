@@ -77,4 +77,15 @@ public class Customer  {
    public void cancelBooking(Booking booking){
       this.bookings.remove(booking);
    }
+
+   @Override
+   public String toString() {
+      return "Customer{" +
+              "customerID='" + customerID + '\'' +
+              ", name='" + name + '\'' +
+              ", email='" + email + '\'' +
+              ", contactNumber='" + contactNumber + '\'' +
+              ", bookings=" + bookings +
+              '}';
+   }
 }

@@ -1,101 +1,111 @@
 package model;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 public class Ticket {
-
      private final String ticketID;
-     private Flight flight;
      private Customer customer;
+     private Flight flight;
+     private LocalDateTime dateOfDeparture;
+     private LocalDateTime dateOfArrival;
+     private String timeOfDeparture;
+     private String timeOfArrival;
+     private String gateNumber;
      private String seatNumber;
-     private double price;
-     private BookingClass bookingClass;
-     private ArrayList<Ticket> tickets;
 
-    public Ticket(String ticketID, Flight flight, Customer customer, String seatNumber, double price, BookingClass bookingClass, ArrayList<Ticket> tickets) {
-        this.ticketID = ticketID;
-        this.flight = flight;
-        this.customer = customer;
-        this.seatNumber = seatNumber;
-        this.price = price;
-        this.bookingClass = bookingClass;
-        this.tickets = new ArrayList<>();
-    }
+     public Ticket(Customer customer, Flight flight, LocalDateTime dateOfDeparture, LocalDateTime dateOfArrival, String timeOfDeparture, String timeOfArrival, String gateNumber, String seatNumber) {
+          this.ticketID=UUID.randomUUID().toString();
+          this.customer = customer;
+          this.flight = flight;
+          this.dateOfDeparture = dateOfDeparture;
+          this.dateOfArrival = dateOfArrival;
+          this.timeOfDeparture = timeOfDeparture;
+          this.timeOfArrival = timeOfArrival;
+          this.gateNumber = gateNumber;
+          this.seatNumber = seatNumber;
+     }
 
-    public String getTicketID() {
-        return ticketID;
-    }
+     public String getTicketID() {
+          return ticketID;
+     }
 
-    public Flight getFlight() {
-        return flight;
-    }
+     public Customer getCustomer() {
+          return customer;
+     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
+     public void setCustomer(Customer customer) {
+          this.customer = customer;
+     }
 
-    public String getSeatNumber() {
-        return seatNumber;
-    }
+     public Flight getFlight() {
+          return flight;
+     }
 
-    public double getPrice() {
-        return price;
-    }
+     public void setFlight(Flight flight) {
+          this.flight = flight;
+     }
 
-    public BookingClass getBookingClass() {
-        return bookingClass;
-    }
+     public LocalDateTime getDateOfDeparture() {
+          return dateOfDeparture;
+     }
 
-    public ArrayList<Ticket> getTickets() {
-        return tickets;
-    }
+     public void setDateOfDeparture(LocalDateTime dateOfDeparture) {
+          this.dateOfDeparture = dateOfDeparture;
+     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
-    }
+     public LocalDateTime getDateOfArrival() {
+          return dateOfArrival;
+     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+     public void setDateOfArrival(LocalDateTime dateOfArrival) {
+          this.dateOfArrival = dateOfArrival;
+     }
 
-    public void setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
-    }
+     public String getTimeOfDeparture() {
+          return timeOfDeparture;
+     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+     public void setTimeOfDeparture(String timeOfDeparture) {
+          this.timeOfDeparture = timeOfDeparture;
+     }
 
-    public void setBookingClass(BookingClass bookingClass) {
-        this.bookingClass = bookingClass;
-    }
+     public String getTimeOfArrival() {
+          return timeOfArrival;
+     }
 
-    public void setTickets(ArrayList<Ticket> tickets) {
-        this.tickets = tickets;
-    }
+     public void setTimeOfArrival(String timeOfArrival) {
+          this.timeOfArrival = timeOfArrival;
+     }
 
-    public void addTicket(Ticket ticket){
-        this.tickets.add(ticket);
-    }
+     public String getGateNumber() {
+          return gateNumber;
+     }
 
-    public void removeTicket(Ticket ticket){
-        this.tickets.remove(ticket);
-    }
+     public void setGateNumber(String gateNumber) {
+          this.gateNumber = gateNumber;
+     }
 
-    public Ticket findTicketById(String ticketID){
-        for(Ticket ticket : tickets){
-            if(ticket.getTicketID().equals(ticketID)){
-                return ticket;
-            }
-        } return null;
-    }
+     public String getSeatNumber() {
+          return seatNumber;
+     }
 
-    public void printTicket() {
-        System.out.println("Ticket ID: " + ticketID);
-        System.out.println("Customer: " + customer.getName());
-        System.out.println("Flight: " + flight.getFlightNumber());
-        System.out.println("Seat Number: " + seatNumber);
-        System.out.println("Price: $" + price);
-        System.out.println("Booking Class: " + bookingClass);
-    }
+     public void setSeatNumber(String seatNumber) {
+          this.seatNumber = seatNumber;
+     }
+
+     public void printTicket() {
+          System.out.println("Ticket ID: " + this.ticketID);
+          System.out.println("Flight: " + this.flight.getFlightID());
+          System.out.println("Customer: " + this.customer.getName());
+          System.out.println("Date of Departure" + this.dateOfDeparture);
+          System.out.println("Date of Arrival" + this.dateOfArrival);
+          System.out.println("Time of Departure" + this.timeOfDeparture);
+          System.out.println("Time of Arrival" + this.timeOfArrival);
+          System.out.println("Gate Number" + this.gateNumber);
+          System.out.println("SeatNumber" + this.seatNumber);
+     }
 }

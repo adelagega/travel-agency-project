@@ -1,21 +1,22 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
-public class Flight implements Bookable, Searchable {
-    private static int instanceCounter = 0;
-    private String flightNumber;
+public class Flight implements Bookable<Integer> {
+    private final String flightID;
     public String airline;
     private String departureAirport;
     private String arrivalAirport;
-    private String departureTime;
-    private String arrivalTime;
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
     private int availableSeats;
     private double pricePerSeat;
-    private boolean isAvailable;
 
-    public Flight(String airline, String departureAirport, String arrivalAirport, String departureTime, String arrivalTime, int availableSeats, double pricePerSeat, boolean isAvailable) {
-        instanceCounter++;
+
+    public Flight(String airline, String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime, int availableSeats, double pricePerSeat) {
+        this.flightID=UUID.randomUUID().toString();
         this.airline = airline;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
@@ -25,12 +26,8 @@ public class Flight implements Bookable, Searchable {
         this.pricePerSeat = pricePerSeat;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+    public String getFlightID() {
+        return flightID;
     }
 
     public String getAirline() {
@@ -57,19 +54,19 @@ public class Flight implements Bookable, Searchable {
         this.arrivalAirport = arrivalAirport;
     }
 
-    public String getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalTime() {
+    public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -92,53 +89,36 @@ public class Flight implements Bookable, Searchable {
     public boolean isAvailable(int numberOfSeats){
         return availableSeats>=numberOfSeats;
     }
+
+
     @Override
-    public void book(Object bookingdetails) {
-        if(bookingdetails instanceof Integer){
-            int numberOfSeats=(Integer) bookingdetails;
-            if(isAvailable(numberOfSeats)){
-                availableSeats-=numberOfSeats;
-            } else{
-                throw new IllegalStateException("No enough available seats");
-            }
+    public void book(Integer numOfSeats) {
+        if(isAvailable(numOfSeats)){
+            availableSeats-=numOfSeats;
         } else {
-         throw new IllegalArgumentException("Invalid Booking details");
+            throw new IllegalStateException("Not enough evailable seats");
         }
     }
-
     @Override
-    public void cancel(Object bookingDetails) {
-      if(bookingDetails instanceof Integer){
-          int numberOfSeats=(Integer)bookingDetails;
-          availableSeats+=numberOfSeats;
-      }else{
-          throw new IllegalArgumentException("Invalid Booking details");
-      }
+    public void cancel(Integer numOfSeats) {
+       availableSeats+=numOfSeats;
     }
-
     @Override
-    public double calculatePrice(Object bookingDetails) {
-        if(bookingDetails instanceof Double){
-         int numberOfSeats=(Integer) bookingDetails;
-         return pricePerSeat*numberOfSeats;
-        } else{
-            throw new IllegalArgumentException("Invalid Booking details");
-        }
+    public double calculatePrice(Integer numOfSeats) {
+        return pricePerSeat*numOfSeats;
     }
-
     @Override
-    public List<Object> search() {
-        return null;
-    }
-
-    @Override
-    public List<Object> filter() {
-        return null;
-    }
-
-    @Override
-    public List<Object> sort() {
-        return null;
+    public String toString() {
+        return "Flight{" +
+                "flightID='" + flightID + '\'' +
+                ", airline='" + airline + '\'' +
+                ", departureAirport='" + departureAirport + '\'' +
+                ", arrivalAirport='" + arrivalAirport + '\'' +
+                ", departureTime=" + departureTime +
+                ", arrivalTime=" + arrivalTime +
+                ", availableSeats=" + availableSeats +
+                ", pricePerSeat=" + pricePerSeat +
+                '}';
     }
 }
 
