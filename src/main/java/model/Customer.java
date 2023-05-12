@@ -1,68 +1,91 @@
 package model;
 
-public class Customer implements Payment {
-    private String name;
-    private String lastName;
-    private int age;
-    private double balance;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Customer(String name, String lastName, int age, double balance)
-            throws InvalidAgeException{
-        if(age<18){
-            throw new InvalidAgeException();
-        }
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-        this.balance = balance;
-    }
+public class Customer  {
 
+   private String customerID;
+   private String name;
+   private String email;
+   private String contactNumber;
+   private List<Booking> bookings;
 
+   public Customer(String customerID, String name, String email, String contactNumber, List<Booking> bookings) {
+      this.customerID = customerID;
+      this.name = name;
+      this.email = email;
+      this.contactNumber = contactNumber;
+      this.bookings=new ArrayList<>();
+   }
 
-    public String getName() {
-        return name;
-    }
+   public String getCustomerID() {
+      return customerID;
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public void setCustomerID(String customerID) {
+      this.customerID = customerID;
+   }
 
-    public int getAge() {
-        return age;
-    }
+   public String getName() {
+      return name;
+   }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+   public void setName(String name) {
+      this.name = name;
+   }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+   public String getEmail() {
+      return email;
+   }
 
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
-    public boolean makePayment(double amount) throws InsufficientFundsException{
-        if(balance>=amount){
-            balance-=amount;
-            return true;
-        }else{
-            throw new InsufficientFundsException();
-        }
-    }
-    public boolean refundPayment(double amount) {
-        balance+=amount;
-        return true;
-    }
-    public double getBalance() {
-        return balance;
-    }
+   public String getContactNumber() {
+      return contactNumber;
+   }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", balance=" + balance +
-                '}';
-    }
+   public void setContactNumber(String contactNumber) {
+      this.contactNumber = contactNumber;
+   }
+
+   public List<Booking> getBookings() {
+      return bookings;
+   }
+
+   public void setBookings(List<Booking> bookings) {
+      this.bookings = bookings;
+   }
+
+   public void updateCustomerInformation(String customerID, String name, String email, String contactNumber){
+      this.customerID=customerID;
+      this.name=name;
+      this.email=email;
+      this.contactNumber=contactNumber;
+   }
+
+   public List<Booking> getBookingHistory(){
+      return this.bookings;
+   }
+
+   public void addBooking(Booking booking){
+     this.bookings.add(booking);
+   }
+
+   public void cancelBooking(Booking booking){
+      this.bookings.remove(booking);
+   }
+
+   @Override
+   public String toString() {
+      return "Customer{" +
+              "customerID='" + customerID + '\'' +
+              ", name='" + name + '\'' +
+              ", email='" + email + '\'' +
+              ", contactNumber='" + contactNumber + '\'' +
+              ", bookings=" + bookings +
+              '}';
+   }
 }

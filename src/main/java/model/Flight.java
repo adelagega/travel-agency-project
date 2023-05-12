@@ -1,132 +1,124 @@
 package model;
 
-public class Flight implements Bookable, Cancellable {
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
-    private String flightNumber;
-    private String airline;
-    private String departureTime;
-    private String arrivalTime;
-    private double price;
-    private boolean isAvailable;
-    private boolean isReserved;
-    private static final int maxCapacity; //
-    private int seatsSold;
+public class Flight implements Bookable<Integer> {
+    private final String flightID;
+    public String airline;
+    private String departureAirport;
+    private String arrivalAirport;
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
+    private int availableSeats;
+    private double pricePerSeat;
 
-    static{
-        maxCapacity = 300;
-    }
 
-    public Flight(String flightNumber, String airline, String departureTime, String arrivalTime, double price, boolean isAvailable, boolean isReserved, int seatsSold) {
-        this.flightNumber = flightNumber;
+    public Flight(String airline, String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime, int availableSeats, double pricePerSeat) {
+        this.flightID=UUID.randomUUID().toString();
         this.airline = airline;
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
-        this.price = price;
-        this.isAvailable = isAvailable;
-        this.isReserved = isReserved;
-        this.seatsSold = seatsSold;
+        this.availableSeats = availableSeats;
+        this.pricePerSeat = pricePerSeat;
     }
 
-    public static int getMaxCapacity() {
-        return maxCapacity;
+    public String getFlightID() {
+        return flightID;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
     public String getAirline() {
         return airline;
     }
+
     public void setAirline(String airline) {
         this.airline = airline;
     }
-    public String getDepartureTime() {
+
+    public String getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public void setDepartureAirport(String departureAirport) {
+        this.departureAirport = departureAirport;
+    }
+
+    public String getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+    public void setArrivalAirport(String arrivalAirport) {
+        this.arrivalAirport = arrivalAirport;
+    }
+
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
-    public void setDepartureTime(String departureTime) {
+
+    public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
     }
 
-    public String getArrivalTime() {
+    public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
+    public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public double getPrice() {
-        return price;
+    public int getAvailableSeats() {
+        return availableSeats;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public double getPricePerSeat() {
+        return pricePerSeat;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setPricePerSeat(double pricePerSeat) {
+        this.pricePerSeat = pricePerSeat;
     }
 
-    public boolean isReserved() {
-        return isReserved;
-    }
-
-    public void setReserved(boolean reserved) {
-        isReserved = reserved;
-    }
-
-    public int getSeatsSold() {
-        return seatsSold;
-    }
-
-    public void setSeatsSold(int seatsSold) {
-        this.seatsSold = seatsSold;
+    public boolean isAvailable(int numberOfSeats){
+        return availableSeats>=numberOfSeats;
     }
 
 
-
-
-    public boolean checkAvailability() {
-        return isAvailable && !isReserved && (seatsSold<maxCapacity);
-    }
-    public boolean reserve() {
-        if(checkAvailability()){
-            isReserved=true;
-            seatsSold++;
-            return true;
-        }else{
-            return false;
+    @Override
+    public void book(Integer numOfSeats) {
+        if(isAvailable(numOfSeats)){
+            availableSeats-=numOfSeats;
+        } else {
+            throw new IllegalStateException("Not enough evailable seats");
         }
     }
-    public boolean cancelReservation() {
-        if(isReserved){
-            isReserved=false;
-            seatsSold--;
-            return true;
-        }else{
-            return false;
-        }
+    @Override
+    public void cancel(Integer numOfSeats) {
+       availableSeats+=numOfSeats;
     }
-
-    public static final void printMaxCapacity() {
-        System.out.println("The maximum capacity of a Flight is " + maxCapacity + " seats.");
+    @Override
+    public double calculatePrice(Integer numOfSeats) {
+        return pricePerSeat*numOfSeats;
     }
-
     @Override
     public String toString() {
         return "Flight{" +
-                "flightNumber='" + flightNumber + '\'' +
+                "flightID='" + flightID + '\'' +
                 ", airline='" + airline + '\'' +
-                ", departureTime='" + departureTime + '\'' +
-                ", arrivalTime='" + arrivalTime + '\'' +
-                ", price=" + price +
-                ", isAvailable=" + isAvailable +
-                ", isReserved=" + isReserved +
-                ", seatsSold=" + seatsSold +
+                ", departureAirport='" + departureAirport + '\'' +
+                ", arrivalAirport='" + arrivalAirport + '\'' +
+                ", departureTime=" + departureTime +
+                ", arrivalTime=" + arrivalTime +
+                ", availableSeats=" + availableSeats +
+                ", pricePerSeat=" + pricePerSeat +
                 '}';
     }
 }
+

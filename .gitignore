@@ -1,2 +1,3 @@
-# Project exclude paths
-/target/
+ECHO is on.
+.idea/
+target/
