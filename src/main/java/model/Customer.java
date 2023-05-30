@@ -1,68 +1,55 @@
 package model;
 
-public class Customer implements Payment {
-    private String name;
-    private String lastName;
-    private int age;
-    private double balance;
+public class Customer  {
 
-    public Customer(String name, String lastName, int age, double balance)
-            throws InvalidAgeException{
-        if(age<18){
-            throw new InvalidAgeException();
-        }
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-        this.balance = balance;
-    }
+   private String customerID;
+   private String name;
+   private String email;
+   private String contactNumber;
 
+   public Customer(String customerID, String name, String email, String contactNumber) {
+      this.customerID = customerID;
+      this.name = name;
+      this.email = email;
+      this.contactNumber = contactNumber;
+   }
 
+   public String getCustomerID() {
+      return customerID;
+   }
 
-    public String getName() {
-        return name;
-    }
+   public void setCustomerID(String customerID) {
+      this.customerID = customerID;
+   }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+   public String getName() {
+      return name;
+   }
 
-    public int getAge() {
-        return age;
-    }
+   public void setName(String name) {
+      this.name = name;
+   }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+   public String getEmail() {
+      return email;
+   }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
+   public String getContactNumber() {
+      return contactNumber;
+   }
 
-    public boolean makePayment(double amount) throws InsufficientFundsException{
-        if(balance>=amount){
-            balance-=amount;
-            return true;
-        }else{
-            throw new InsufficientFundsException();
-        }
-    }
-    public boolean refundPayment(double amount) {
-        balance+=amount;
-        return true;
-    }
-    public double getBalance() {
-        return balance;
-    }
+   public void setContactNumber(String contactNumber) {
+      this.contactNumber = contactNumber;
+   }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
-                ", balance=" + balance +
-                '}';
-    }
+   public void updateCustomerInformation(String customerID, String name, String email, String contactNumber){
+      this.customerID=customerID;
+      this.name=name;
+      this.email=email;
+      this.contactNumber=contactNumber;
+   }
 }

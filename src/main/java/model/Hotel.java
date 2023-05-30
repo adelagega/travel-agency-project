@@ -1,50 +1,69 @@
 package model;
 
-public class Hotel extends Accomodation {
+import java.util.List;
 
-    private int starRating;
+public class Hotel {
+    private String hotelID;
+    private String name;
+    private String address;
+    private int rating;
+    private RoomType roomType;
+    private double pricePerRoom;
 
-    public Hotel(String name, String location, double price, boolean isAvailable, boolean isReserved, int starRating) {
-        super(name, location, price, isAvailable, isReserved);
-        this.starRating = starRating;
+    public Hotel(String hotelID, String name, String address, int rating, RoomType roomType, double pricePerRoom) {
+        this.hotelID = hotelID;
+        this.name = name;
+        this.address = address;
+        this.rating = rating;
+        this.roomType = roomType;
+        this.pricePerRoom = pricePerRoom;
     }
 
-  /*public Hotel(String name, String location, double price, boolean isAvailable, boolean isReserved, int starRating) {
-        super(name, location, price, isAvailable, isReserved);
-        try{
-            if(starRating<0||starRating>5){
-                throw new InvalidStarRatingException();
-            }
-            this.starRating=starRating;
-        } catch(InvalidStarRatingException e){
-            System.out.println(e.getMessage());
-            this.starRating=-1;
-        }
-    }
-     */
-
-    public int getStarRating() {
-        return starRating;
+    public String getHotelID() {
+        return hotelID;
     }
 
-    public void setStarRating(int starRating) {
-        this.starRating = starRating;
+    public void setHotelID(String hotelID) {
+        this.hotelID = hotelID;
     }
 
-    @Override
-    public double getPricePerNight() {
-        return 0;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "name='" + getName() + '\'' +
-                ", location='" + getLocation() + '\'' +
-                ", price=" + getPrice() +
-                ", isAvailable=" + isAvailable() +
-                ", isReserved=" + isReserved() +
-                ", starRating=" + starRating +
-                '}';
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
+    public double getPricePerRoom() {
+        return pricePerRoom;
+    }
+
+    public void setPricePerRoom(double pricePerRoom) {
+        this.pricePerRoom = pricePerRoom;
     }
 }
