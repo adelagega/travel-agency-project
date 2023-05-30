@@ -1,19 +1,17 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-public class Flight implements Bookable<Integer> {
+public class Flight  {
     private final String flightID;
-    public String airline;
+    private String airline;
     private String departureAirport;
     private String arrivalAirport;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private int availableSeats;
     private double pricePerSeat;
-
 
     public Flight(String airline, String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime, int availableSeats, double pricePerSeat) {
         this.flightID=UUID.randomUUID().toString();
@@ -90,23 +88,6 @@ public class Flight implements Bookable<Integer> {
         return availableSeats>=numberOfSeats;
     }
 
-
-    @Override
-    public void book(Integer numOfSeats) {
-        if(isAvailable(numOfSeats)){
-            availableSeats-=numOfSeats;
-        } else {
-            throw new IllegalStateException("Not enough evailable seats");
-        }
-    }
-    @Override
-    public void cancel(Integer numOfSeats) {
-       availableSeats+=numOfSeats;
-    }
-    @Override
-    public double calculatePrice(Integer numOfSeats) {
-        return pricePerSeat*numOfSeats;
-    }
     @Override
     public String toString() {
         return "Flight{" +

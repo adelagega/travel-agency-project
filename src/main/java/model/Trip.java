@@ -1,70 +1,77 @@
 package model;
 
-import java.util.List;
+import java.util.UUID;
 
 public class Trip {
-    private String tripID;
-    private String startDate;
-    private String endDate;
-    private double price;
-    private TripType tripType;
-    private Destination destination;
+    private final String tripID;
+    private Customer customer;
+    private Flight flight;
+    private Hotel hotel;
+    private Attraction attraction;
+    private double totalPrice;
 
-    public Trip(String tripID, String startDate, String endDate, double price, TripType tripType, Destination destination) {
-        this.tripID = tripID;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.price = price;
-        this.tripType = tripType;
-        this.destination = destination;
+    public Trip(Customer customer, Flight flight, Hotel hotel, Attraction attraction, double totalPrice) {
+        this.tripID = UUID.randomUUID().toString();
+        this.customer = customer;
+        this.flight = flight;
+        this.hotel = hotel;
+        this.attraction=attraction;
+        this.totalPrice = totalPrice;
     }
 
     public String getTripID() {
         return tripID;
     }
 
-    public void setTripID(String tripID) {
-        this.tripID = tripID;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public double getPrice() {
-        return price;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public Attraction getAttraction() {
+        return attraction;
     }
 
-    public TripType getTripType() {
-        return tripType;
+    public void setAttraction(Attraction attraction) {
+        this.attraction = attraction;
     }
 
-    public void setTripType(TripType tripType) {
-        this.tripType = tripType;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public Destination getDestination() {
-        return destination;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "tripID='" + tripID + '\'' +
+                ", customer=" + customer +
+                ", flight=" + flight +
+                ", hotel=" + hotel +
+                ", attraction=" + attraction +
+                ", totalPrice=" + totalPrice +
+                '}';
     }
-
 }

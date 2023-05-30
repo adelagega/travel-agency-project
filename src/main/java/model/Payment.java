@@ -4,14 +4,20 @@ import java.util.UUID;
 
 public class Payment {
     private final String paymentID;
-    private Booking booking;
+    private Flight flight;
+    private Trip trip;
+
+    private TravelDeal travelDeal;
     private double amount;
     private PaymentMethod paymentMethod;
     private PaymentStatus paymentStatus;
 
-    public Payment(Booking booking, double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus) {
+
+    public Payment(Flight flight, Trip trip, TravelDeal travelDeal, double amount, PaymentMethod paymentMethod, PaymentStatus paymentStatus) {
         this.paymentID= UUID.randomUUID().toString();
-        this.booking = booking;
+        this.flight = flight;
+        this.trip=trip;
+        this.travelDeal = travelDeal;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
@@ -21,12 +27,28 @@ public class Payment {
         return paymentID;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
+    public TravelDeal getTravelPackage() {
+        return travelDeal;
+    }
+
+    public void setTravelPackage(TravelDeal travelDeal) {
+        this.travelDeal = travelDeal;
     }
 
     public double getAmount() {
@@ -51,5 +73,25 @@ public class Payment {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public void changePaymentStatus(PaymentStatus newStatus){
+        switch(newStatus){
+            case PENDING:
+                System.out.println("Payment is pending. Please wait for confirmation.");
+                break;
+            case SUCCESS:
+                System.out.println("Payment is successful.");
+                break;
+            case FAILED:
+                System.out.println("Payment has failed. Please try again");
+                break;
+            case REFUNDED:
+                System.out.println("Payment has been refunded.");
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid payment status" + newStatus);
+        }
+        this.paymentStatus=newStatus;
     }
 }
